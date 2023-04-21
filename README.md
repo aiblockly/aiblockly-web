@@ -15,12 +15,23 @@ sudo apt update
 sudo apt install -y redis-server python3-pip
 sudo apt install -y  python3-venv ##Optional
 ```
+
 建议使用venv来管理环境
+
 ```bash
 mkdir /起名字什么的/最讨厌啦/ #改成你自己的路径 (请注意权限 权限不够就加sudo）
-
 cd /起名字什么的/最讨厌啦/
 git clone https://github.com/aiblockly/aiblockly-web
-sudo apt install -y redis-server python3-pip
-sudo apt install -y  python3-venv ##Optional
+python3 -m venv venv #需要虚拟环境部署
+source venv/bin/activa
+pip3 install flask flask-Caching redis
 ```
+## 快速运行
+```bash 
+cd aiblockly-web
+python3 app.py
+```
+随后访问板子的5000端口即可
+
+## 完全部署（利用uwsgi+nginx)
+TODO
