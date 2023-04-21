@@ -1,0 +1,201 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>VIRobotics</title>
+<script>
+    contextPath = "";
+    resourcesPath = "/static/resources";
+</script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<link rel="alternate icon" type="image/png" href="/static/resources/img/favicon.ico">
+<link rel="stylesheet" href="/static/resources/common/amazeui/css/amazeui.min.css"/>
+
+    <link rel="stylesheet" href="/static/resources/css/index.css">
+    <script src="/static/resources/common/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/static/resources/common/jquery/jquery.cookie.min.js"></script>
+    <script>
+        $.ajax({
+                url: contextPath+"/dynamicjs/toolbar",
+                async: false,
+                success: function (data) {
+                    global_str_toolbar = data;
+                }
+            }
+        )
+    </script>
+    <script>
+
+    </script>
+</head>
+<body>
+<header class="am-topbar excapp-topbar">
+    <h1 class="am-topbar-brand">
+        <a href="#"><img class="logo excapp-logo" src="/static/resources/img/logo.png"></a>
+    </h1>
+    <div class="am-topbar-brand">
+        {% autoescape false %}
+        {{ warnstr |safe }}
+        {% endautoescape %}
+        {% if act %}
+        <a class="am-btn" href="javascript:void(0)" id="activa">登錄啟動</a>
+        {% endif %}
+        <a href="javascript:" id="admin-fullscreen">
+            <span class="am-icon-arrows-alt"></span>
+            <span class="admin-fullText">開啟全屏</span>
+        </a>
+    &nbsp;
+        <a href="javascript:" id="vnc">
+            <span class="am-icon-desktop"></span>
+            <span class="admin-fullText">遠程桌面</span>
+        </a>
+    </div>
+</header>
+<div class="am-tabs excapp-content" id="excapp_tabs" data-am-widget="tabs" data-am-tabs-noswipe="1">
+    <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
+        <li class="am-active">
+            <a href="">
+                <span class="am-icon-home am-icon-sm"></span>
+                工作區
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <span class="am-icon-code am-icon-sm"></span>
+                代碼
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="am-icon-gear am-icon-spin"></i>
+                設置
+            </a>
+        </li>
+    </ul>
+    <div class="am-tabs-bd excapp-full-height">
+        <div class="am-tab-panel am-active"  style="padding-top: 0;">
+            <div id="blockly"></div>
+        </div>
+        <div class="am-tab-panel" style="padding-top: 0;">
+            <ul class="am-avg-sm-2 am-thumbnails">
+                <li>
+                    <pre id="python_code" class="am-pre-scrollable excapp-code excapp-full-height">
+
+                    </pre>
+                </li>
+                <li>
+                    <div class="am-btn-group am-btn-group-justify">
+                        <a id="run" class="am-btn am-btn-success am-radius" role="button"><span class="am-icon-play"></span>&nbsp;運行</a>
+                        <a id="kill" class="am-btn am-btn-danger" role="button"><span class="am-icon-stop" hidden></span>&nbsp;終止</a>
+                        <a id="clear" class="am-btn am-btn-warning" role="button"><span class="am-icon-eraser"></span>&nbsp;清空</a>
+                        <a id="export" class="am-btn am-btn-secondary  am-radius" role="button"><span class="am-icon-terminal"></span>&nbsp;匯出代碼</a>
+                    </div>
+                    <div class="am-progress am-progress-striped am-progress-sm">
+                        <div id="runProcessBar" class="am-progress-bar am-progress-bar-secondary"></div>
+                    </div>
+                    <pre id="status_code" class="am-pre-scrollable excapp-status-code excapp-full-height"></pre>
+                </li>
+            </ul>
+        </div>
+        <div class="am-tab-panel" style="padding-top: 0;">
+            <div class="am-g">
+                <br>
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">介面語言</span>
+                    </div>
+                    <div class="am-u-sm-9">
+                        <div class="am-form-group">
+                            <select id="language_select" class="am-form-field am-disabled">
+                                <option value="zhCN" >簡體中文</option>
+                                <option value="zhTW" selected>繁體中文</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">自啟動管理</span>
+                    </div>
+                    <div class="am-u-sm-9 settings-div">
+                        <div class="am-btn-group am-btn-group-justify">
+                            <a id="load" class="am-btn am-btn-default" role="button"><span class="am-icon-star"></span>置為自啟動</a>
+                            <a id="unload" class="am-btn am-btn-secondary " role="button"><span class="am-icon-remove"></span>清除自啟動</a>
+                            <a id="ter_auto" class="am-btn am-btn-primary " role="button"><span class="am-icon-chain-broken"></span>結束自啟進程</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 1em"></div>
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">控制</span>
+                    </div>
+                    <div class="am-u-sm-9">
+                        <div class="am-btn-group am-btn-group-justify">
+                            <a id="poweroff" class="am-btn am-btn-danger" role="button"><span class="am-icon-power-off"></span>&nbsp;關機</a>
+                            <a id="reboot" class="am-btn am-btn-warning" role="button"><span class="am-icon-recycle"></span>&nbsp;重啟</a>
+                            <a id="update" class="am-btn am-btn-success" role="button" hidden><span class="am-icon-flash"></span>&nbsp;更新</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 1em"></div>
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">功能</span>
+                    </div>
+                    <div class="am-u-sm-9">
+                        <div class="am-btn-group am-btn-group-justify">
+                            <a id="importWorkspace" class="am-btn am-btn-primary" role="button"><span class="am-icon-folder-open"></span>&nbsp;導入工作區</a>
+                            <a id="exportWorkspace" class="am-btn am-btn-primary" role="button"><span class="am-icon-save"></span>&nbsp;匯出工作區</a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">幫助</span>
+                    </div>
+                    <div class="am-u-sm-9">
+                        <div class="am-btn-group am-btn-group-justify">
+                            <a id="importWorkspaceFromCachebk" class="am-btn am-btn-primary" role="button" href="http://dl.virobotics.kan-colle.net:8081/raspi/example/">下載範例</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="am-g">
+                            <div id="user" data-id="6401910544495804416" data-name="5p2O5oWn5bOw5piv5aS06am0" data-email="SiliconBoy@lihui.fun"
+                                 data-org="pu"  data-winid="pa" hidden></div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <p>© 2018 <a href="http://www.virobotics.cn" target="_blank">VIRobotics, Inc.</a> by the VIRobotics Team.</p>
+</footer>
+
+<script src="/static/resources/common/amazeui/js/amazeui_zht.min.js"></script>
+<script  src="/static/resources/js/lang/{{ lang }}.js"></script>
+<script src="/static/resources/common/amazeui/js/amazeui.tw.dialog.min.js"></script>
+<script src="/static/resources/common/amazeui/js/app.js"></script>
+<script src="/static/resources/common/blockly/blockly_compressed.js"></script>
+<script src="/static/resources/common/blockly/blocks_compressed.js"></script>
+<script src="/static/resources/common/blockly/python_compressed.js"></script>
+<script src="/static/resources/common/blockly/msg/js/{{ lang }}.js"></script>
+<script src="/static/resources/js/blockly/definitions.js"></script>
+<script src="/static/resources/js/blockly/constant.js"></script>
+<script src="/static/resources/js/blockly/toolsBar.js"></script>
+<script src="/static/resources/js/blockly.zh_tw.min.js"></script>
+<script src="/static/resources/js/activa.min.js"></script>
+<script src="/static/resources/js/index.min.js"></script>
+<script src="/static/resources/js/user.js"></script>
+<script src="/static/resources/common/crypto/jsencrypt.min.js"></script>
+</body>
+</html>

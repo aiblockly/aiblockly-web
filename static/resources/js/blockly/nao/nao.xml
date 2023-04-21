@@ -1,0 +1,280 @@
+<category name="NAO" colour="120">
+<block type="nao_Initial"></block>
+<category name="语音" colour="120">
+<category name="机器人说话" colour="120">
+<block type="say">
+<value name="stringToSay">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+</block>
+<block type="setLanguage2">
+<value name="language">
+<block type="text">
+<field name="TEXT">Chinese</field>
+</block>
+</value>
+</block>
+<block type="setVolume">
+<value name="volume">
+<block type="math_number">
+<field name="NUM">1.0</field>
+</block>
+</value>
+</block>
+<block type="stopAll">
+</block>
+</category>
+
+<category name="语音识别" colour="120">
+<block type="setVocabulary">
+<value name="enabledWordSpotting">
+<block type="logic_boolean">
+<field name="BOOL">False</field>
+</block>
+</value>
+</block>
+<block type="setLanguage">
+<value name="languageName">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+</block>
+<block type="subscribe_1">
+<value name="name">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+</block>
+<block type="unsubscribe">
+<value name="name">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+</block>
+</category>
+</category>
+
+<category name="运动" colour="120">
+
+<category name="姿态控制" colour="120">
+<block type="goToPosture">
+<value name="postureName">
+<block type="text">
+<field name="TEXT">Crouch</field>
+</block>
+</value>
+<value name="maxSpeedFraction">
+<block type="math_number">
+<field name="NUM">0.800000</field>
+</block>
+</value>
+</block>
+<block type="stopMove">
+</block>
+</category>
+
+
+<category name="运动控制" colour="120">
+<block type="closeHand">
+<value name="Hand">
+<block type="text">
+<field name="TEXT">RHand</field>
+</block>
+</value>
+</block>
+<block type="openHand">
+<value name="Hand">
+<block type="text">
+<field name="TEXT">RHand</field>
+</block>
+</value>
+</block>
+<block type="rest">
+</block>
+<block type="wakeUp">
+</block>
+<block type="getAngles">
+<value name="useSensors">
+<block type="logic_boolean">
+<field name="BOOL">False</field>
+</block>
+</value>
+</block>
+<block type="setAngles">
+<value name="fractionMaxSpeed">
+<block type="math_number">
+<field name="NUM">0.000000</field>
+</block>
+</value>
+</block>
+<block type="move_1">
+<value name="x">
+<block type="math_number">
+<field name="NUM">0.000000</field>
+</block>
+</value>
+<value name="y">
+<block type="math_number">
+<field name="NUM">0.000000</field>
+</block>
+</value>
+<value name="theta">
+<block type="math_number">
+<field name="NUM">0.000000</field>
+</block>
+</value>
+</block>
+<block type="moveTo_3">
+<value name="x">
+<block type="math_number">
+<field name="NUM">0.000000</field>
+</block>
+</value>
+<value name="y">
+<block type="math_number">
+<field name="NUM">0.000000</field>
+</block>
+</value>
+<value name="theta">
+<block type="math_number">
+<field name="NUM">0.000000</field>
+</block>
+</value>
+</block>
+</category>
+
+</category>
+<category name="视觉" colour="120">
+<category name="视觉设备" colour="120">
+<block type="setActiveCamera_1">
+<value name="activecamera">
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+<block type="subscribe">
+<value name="gvmName">
+<block type="text">
+<field name="TEXT">0</field>
+</block>
+</value>
+<value name="resolution">
+<block type="math_number">
+<field name="NUM">1</field>
+</block>
+</value>
+<value name="colorSpace">
+<block type="math_number">
+<field name="NUM">11</field>
+</block>
+</value>
+<value name="fps">
+<block type="math_number">
+<field name="NUM">10</field>
+</block>
+</value>
+</block>
+<block type="getImageRemote">
+<value name="name">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+</block>
+<block type="unsubscribe">
+<value name="nameId">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+</block>
+</category>
+<category name="目标追踪" colour="120">
+<block type="registerTarget_Face">
+<value name="Width">
+<block type="math_number">
+<field name="NUM">0.100000</field>
+</block>
+</value>
+</block>
+<block type="registerTarget_RedBall">
+<value name="diameter">
+<block type="math_number">
+<field name="NUM">0.08</field>
+</block>
+</value>
+</block>
+<block type="setMode">
+<value name="Mode">
+<block type="text">
+<field name="TEXT">Head</field>
+</block>
+</value>
+</block>
+<block type="track">
+<value name="Effector">
+<block type="text">
+<field name="TEXT">RedBall</field>
+</block>
+</value>
+</block>
+<block type="setExtractorPeriod">
+<value name="Effector">
+<block type="text">
+<field name="TEXT">RedBall</field>
+</block>
+</value>
+<value name="Period">
+<block type="math_number">
+<field name="NUM">5</field>
+</block>
+</value>
+</block>
+<block type="isNewTargetDetected">
+</block>
+<block type="getTargetPosition">
+<value name="frame">
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+<block type="stopTracker">
+</block>
+<block type="unregisterAllTargets">
+</block>
+</category>
+</category>
+
+<category name="内存控制" colour="120">
+<block type="getData">
+<value name="key">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+</block>
+<block type="getListData">
+</block>
+<block type="insertData">
+<value name="key">
+<block type="text">
+<field name="TEXT"></field>
+</block>
+</value>
+<value name="value">
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+<block type="insertListData">
+</block>
+</category>
+</category>

@@ -1,0 +1,61 @@
+.excapp-topbar {
+    margin-bottom: 0;
+}
+
+.excapp-topbar > div {
+    float: right;
+}
+
+.excapp-logo {
+    height: 51px;
+}
+
+.excapp-full-height {
+    height: 100%
+}
+
+.excapp-content {
+    height: calc(100% - 145px);
+}
+
+.excapp-code {
+    max-height: 48.2rem;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.excapp-status-code {
+    max-height: 42rem;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.footer {
+    margin-top: 40px;
+}
+
+.footer p {
+    color: #7f8c8d;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+    background: #2d3e50;
+}
+
+.settings-div {
+    text-align: right;
+}
+
+.settings-span {
+    font-family: "FontAwesome", sans-serif;
+}
+
+.excapp-panel {
+    padding-top: 0;
+}
+.comments {
+	width: 100%; /*自动适应父布局宽度*/
+	overflow: auto;
+	word-break: break-all;
+	/*在ie中解决断行问题(防止自动变为在一行显示，主要解决ie兼容问题，ie8中当设宽度为100%时，文本域类容超过一行时，当我们双击文本内容就会自动变为一行显示，所以只能用ie的专有断行属性“word-break或word-wrap”控制其断行)*/
+}

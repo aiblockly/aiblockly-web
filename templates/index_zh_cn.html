@@ -1,0 +1,219 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>VIRobotics</title>
+<script>
+    contextPath = "";
+    resourcesPath = "/static/resources";
+</script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta name="renderer" content="webkit">
+<meta http-equiv="Cache-Control" content="no-siteapp"/>
+<link rel="alternate icon" type="image/png" href="/static/resources/img/favicon.ico">
+<link rel="stylesheet" href="/static/resources/common/amazeui/css/amazeui.min.css"/>
+
+    <link rel="stylesheet" href="/static/resources/css/index.css">
+    <script src="/static/resources/common/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/static/resources/common/jquery/jquery.cookie.min.js"></script>
+    <script>
+        $.ajax({
+                url: contextPath+"/dynamicjs/toolbar",
+                async: false,
+                success: function (data) {
+                    global_str_toolbar = data;
+                }
+            }
+        )
+    </script>
+    <script>
+
+    </script>
+    <link rel="stylesheet" href="/static/resources/js/lib/codemirror.css"/>
+    <script src="/static/resources/js/lib/codemirror.js"></script>
+    <script src="/static/resources/js/lib/python.js"></script>
+    <link rel="stylesheet" href="/static/resources/js/lib/dracula.css"/>
+    <link rel="stylesheet" href="/static/resources/js/lib/show-hint.css"/>
+    <link rel="stylesheet" href="/static/resources/js/lib/lint.css"/>
+    <script src="/static/resources/js/lib/matchbrackets.js"></script>
+    <script src="/static/resources/js/lib/closebrackets.js"></script>
+    <script src="/static/resources/js/lib/sublime.js"></script>
+    <script src="/static/resources/js/lib/show-hint.js"></script>
+    <script src="/static/resources/js/lib/python-hint.js"></script>
+    <script src="/static/resources/js/lib/foldcode.js"></script>
+    <script src="/static/resources/js/lib/foldgutter.js"></script>
+    <script src="/static/resources/js/lib/indent-fold.js"></script>
+    <link rel="stylesheet" href="/static/resources/js/lib/foldgutter.css"/>
+
+</head>
+<body>
+<header class="am-topbar excapp-topbar">
+    <h1 class="am-topbar-brand">
+        <a href="#"><img class="logo excapp-logo" src="/static/resources/img/logo.png"></a>
+    </h1>
+    <div class="am-topbar-brand">
+        <a href="javascript:" id="admin-fullscreen">
+            <span class="am-icon-arrows-alt"></span>
+            <span class="admin-fullText">开启全屏</span>
+        </a>
+    &nbsp;  <a href="javascript:" onclick="location.host=location.hostname+':8888'">
+            <span class="am-icon-flask"></span>
+            <span class="admin-fullText">CodeLab</span>
+        </a>
+        <a href="javascript:" id="vnc">
+            <span class="am-icon-desktop"></span>
+            <span class="admin-fullText">远程桌面</span>
+        </a>
+    </div>
+</header>
+<div class="am-tabs excapp-content" id="excapp_tabs" data-am-widget="tabs" data-am-tabs-noswipe="1">
+    <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify">
+        <li class="am-active" id="wkspace">
+            <a href="">
+                <span class="am-icon-home am-icon-sm"></span>
+                工作区
+            </a>
+        </li>
+        <li id="code_con">
+            <a href="javascript:void(0);">
+                <span class="am-icon-code am-icon-sm"></span>
+                代码
+            </a>
+        </li>
+        <li>
+            <a href="">
+                <i class="am-icon-gear am-icon-spin"></i>
+                设置
+            </a>
+        </li>
+    </ul>
+    <div class="am-tabs-bd excapp-full-height">
+        <div class="am-tab-panel am-active"  style="padding-top: 0;">
+            <div id="blockly"></div>
+        </div>
+        <div class="am-tab-panel" style="padding-top: 0;">
+            <ul class="am-avg-sm-2 am-thumbnails">
+                <li>
+                    <textarea id="python_code" class="am-pre-scrollable excapp-code excapp-full-height comments" readonly="readonly">
+
+                    </textarea>
+                </li>
+                <li>
+                    <div class="am-btn-group am-btn-group-justify">
+                        <a id="run" class="am-btn am-btn-success am-radius" role="button"><span class="am-icon-play"></span>&nbsp;运行</a>
+                        <a id="kill" class="am-btn am-btn-danger" role="button"><span class="am-icon-stop" hidden></span>&nbsp;终止</a>
+                        <a id="clear" class="am-btn am-btn-warning" role="button"><span class="am-icon-eraser"></span>&nbsp;清空</a>
+                        <a id="export" class="am-btn am-btn-secondary  am-radius" role="button"><span class="am-icon-terminal"></span>&nbsp;导出代码</a>
+                    </div>
+                    <div class="am-progress am-progress-striped am-progress-sm">
+                        <div id="runProcessBar" class="am-progress-bar am-progress-bar-secondary"></div>
+                    </div>
+                    <pre id="status_code" class="am-pre-scrollable excapp-status-code excapp-full-height"></pre>
+                </li>
+            </ul>
+{#            <div class="am-btn-group am-btn-group-justify">#}
+{#                <a id="enedit" class="am-btn am-btn-success am-radius" role="button"><span class="am-icon-edit"></span>&nbsp;点我开启python代码修改</a>#}
+{#            </div>#}
+        </div>
+        <div class="am-tab-panel" style="padding-top: 0;">
+            <div class="am-g">
+                <br>
+{#                <div class="am-g">#}
+{#                    <div class="am-u-sm-3 settings-div">#}
+{#                        <span class="settings-span">界面语言</span>#}
+{#                    </div>#}
+{#                    <div class="am-u-sm-9">#}
+{#                        <div class="am-form-group">#}
+{#                            <select id="language_select" class="am-form-field am-disabled">#}
+{#                                <option value="zhCN" selected>简体中文</option>#}
+{#                                <option value="zhTW">繁体中文</option>#}
+{#                            </select>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">自启动管理</span>
+                    </div>
+                    <div class="am-u-sm-9 settings-div">
+                        <div class="am-btn-group am-btn-group-justify">
+                            <a id="load" class="am-btn am-btn-default" role="button"><span class="am-icon-star"></span>置为自启动</a>
+                            <a id="unload" class="am-btn am-btn-secondary " role="button"><span class="am-icon-remove"></span>清除自启动</a>
+                            <a id="ter_auto" class="am-btn am-btn-primary " role="button"><span class="am-icon-chain-broken"></span>结束自启进程</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 1em"></div>
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">控制</span>
+                    </div>
+                    <div class="am-u-sm-9">
+                        <div class="am-btn-group am-btn-group-justify">
+                            <a class="am-btn am-btn-success" role="button" href="/dash" target="_blank"><span class="am-icon-flash"></span>&nbsp;控制台</a>
+                        </div>
+                    </div>
+                </div>
+                <div style="height: 1em"></div>
+                <div class="am-g">
+                    <div class="am-u-sm-3 settings-div">
+                        <span class="settings-span">功能</span>
+                    </div>
+                    <div class="am-u-sm-9">
+                        <div class="am-btn-group am-btn-group-justify">
+                            <a id="importWorkspace" class="am-btn am-btn-primary" role="button"><span class="am-icon-folder-open"></span>&nbsp;导入工作区</a>
+                            <a id="exportWorkspace" class="am-btn am-btn-primary" role="button"><span class="am-icon-save"></span>&nbsp;导出工作区</a>
+
+                        </div>
+                    </div>
+                </div>
+				<div style="height: 1em"></div>
+                <div class="am-g">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <p>© 2018 <a href="http://www.virobotics.cn" target="_blank">VIRobotics, Inc.</a> by the VIRobotics Team.</p>
+</footer>
+<script src="/static/resources/common/amazeui/js/amazeui.min.js"></script>
+<script  src="/static/resources/js/lang/zh_cn.js"></script>
+<script src="/static/resources/common/amazeui/js/amazeui.dialog.min.js"></script>
+<script src="/static/resources/common/amazeui/js/app.js"></script>
+<script src="/static/resources/common/blockly/blockly_compressed.js"></script>
+<script src="/static/resources/common/blockly/blocks_compressed.js"></script>
+<script src="/static/resources/common/blockly/python_compressed.js"></script>
+<script src="/static/resources/common/blockly/msg/js/zh_cn.js"></script>
+<script src="/static/resources/js/blockly/definitions.js"></script>
+<script src="/static/resources/js/blockly/constant.js"></script>
+<script src="/static/resources/js/blockly/toolsBar.js"></script>
+<script src="/static/resources/js/blockly.zh_cn.min.js"></script>
+<script src="/script/plugin.js"></script>
+<script src="/static/resources/js/activa.min.js"></script>
+<script src="/static/resources/js/index.min.js"></script>
+<script src="/static/resources/js/user.js"></script>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("python_code"), {
+        mode: "text/x-python",
+        theme: "dracula",
+        indentUnit: 2,
+        gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
+        foldGutter: true,
+        lineWrapping:true,
+        matchBrackets: true,
+        autoCloseBrackets: true,
+        keyMap:"sublime"
+});
+editor.on("keypress", function() {
+        editor.showHint(); // 注意，注释了CodeMirror库中show-hint.js第131行的代码（阻止了代码补全，同时提供智能提示）
+    });
+</script>
+</body>
+</html>

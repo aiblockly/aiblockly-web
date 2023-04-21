@@ -1,0 +1,1 @@
+var saveSelectColor={Name:"SelcetColor",Color:"theme-white"};storageLoad("SelcetColor")?$("body").attr("class",storageLoad("SelcetColor").Color):(storageSave(saveSelectColor),$("body").attr("class","theme-white"));function storageSave(a){localStorage.setItem(a.Name,JSON.stringify(a))}function storageLoad(a){return localStorage.getItem(a)?JSON.parse(localStorage.getItem(a)):!1};
