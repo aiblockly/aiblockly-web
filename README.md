@@ -82,7 +82,7 @@ User=root
 [Install]
 WantedBy=multi-user.target
 ```
-复制service文件到/etc/systemd/system文件夹执行`sudo systemdctl enable blockly.service`
+复制service文件到/etc/systemd/system文件夹执行`sudo systemctl enable blockly.service`
 
 添加nginx server到nginx的server字段
 ```
