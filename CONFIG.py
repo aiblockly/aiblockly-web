@@ -6,7 +6,7 @@ import os
 import shutil
 class Config(object):
     def __init__(self):
-        self.__conf={"plugin_dir":"/home/pi/obo_plugin","python3_exec":"C:\\Python35\\python.exe","iflytek_libs":"/home/pi/libs/libmsc.so"}
+        self.__conf={"plugin_dir":"/home/pi/obo_plugin","python3_exec":PYTHON_EXECUTE_PATH,"iflytek_libs":"/home/pi/libs/libmsc.so"}
         if os.path.isfile("/etc/aiblockly/config.json"):
             with open("/etc/aiblockly/config.json",mode="r")as f:
                 dict=json.load(f)
